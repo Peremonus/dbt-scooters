@@ -12,12 +12,12 @@ SELECT
     ST_Transform(hex.geom, 4326) AS geom,
     
     -- Подсчитываем количество поездок в каждой гексагональной ячейке
-    COUNT(*) AS trips_count
+    COUNT(*) AS trips
 
 FROM
     -- Используем dbt-референс для получения таблицы с геометрией поездок
     -- Это обеспечивает зависимость между моделями в dbt-проекте
-    {{ ref("trips_geom") }} AS trips
+    {{ ref("trips_geom") }} AS t
 
 -- CROSS JOIN создает декартово произведение между поездками и гексагональной сеткой
 -- Это необходимо для сопоставления каждой точки с соответствующей ячейкой сетки
@@ -30,7 +30,7 @@ CROSS JOIN
         -- Web Mercator использует метры как единицы измерения, что позволяет
         -- корректно работать с расстояниями в метрах при создании сетки
         ST_Transform(
-            trips.start_point, 
+            t.start_point, 
             3857  -- SRID для Web Mercator Projection
         )
     ) AS hex  -- Псевдоним для гексагональной сетки
@@ -40,7 +40,7 @@ WHERE
     ST_Intersects(
         -- Точка начала поездки в Web Mercator для корректного spatial join
         ST_Transform(
-            trips.start_point, 
+            t.start_point, 
             3857
         ),
         
