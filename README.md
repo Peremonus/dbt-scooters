@@ -42,3 +42,13 @@ cd dbt_scooters
 - `dbt build` - основная команда, комбинирует run, test и seed
 - `dbt docs generate` - генерирует документацию проекта
 - `dbt docs serve` - запускает локальный сервер для просмотра документации
+
+...
+
+4. Активируйте PostGIS в базе PostgreSQL, если еще этого не делали:
+
+```sql
+create extension postgis schema public;
+```
+
+...
