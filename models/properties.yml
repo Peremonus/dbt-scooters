@@ -51,6 +51,11 @@ models:
       on_schema_change: "append_new_columns"
       full_refresh: false
 
+  - name: "trips_concurrency"
+    description: "Number of simultaneous rides in time"
+    config:
+      materialized: "incremental"
+
 sources:
   - name: "scooters_raw"
     description: "Raw data provided by scooters service"
