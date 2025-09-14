@@ -62,6 +62,14 @@ models:
   - name: "companies_trips"
     description: "Trip satistics by company"
 
+  - name: "events_full"
+    description: "User events enriched with meaningful types"
+    config:
+      materialized: "view"
+
+  - name: "events_stat"
+    description: "Overall user events statistics"
+
 sources:
   - name: "scooters_raw"
     description: "Raw data provided by scooters service"
