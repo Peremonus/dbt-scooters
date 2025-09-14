@@ -36,6 +36,31 @@ models:
     description: "Prepared trips enriched with users data"
     config:
       materialized: "incremental"
+     
+  - name: "events_clean"
+    description: "User events without duplicates"
+    config:
+      materialized: "incremental"
+  
+  - name: "revenue_daily"
+    description: "Summary daily revenue"
+    config:
+      materialized: "incremental"
+      strategy: "merge"
+      unique_key: [ "date" ]
+      on_schema_change: "append_new_columns"
+      full_refresh: false
+
+  - name: "trips_concurrency"
+    description: "Number of simultaneous rides in time"
+    config:
+      materialized: "incremental"
+
+  - name: "companies"
+    description: "Scooter satistics by company"
+  
+  - name: "companies_trips"
+    description: "Trip satistics by company"
 
 sources:
   - name: "scooters_raw"
@@ -47,3 +72,6 @@ sources:
 
       - name: "users"
         description: "Users of scooter service"
+
+      - name: "events"
+        description: "Raw user events with duplicates"
