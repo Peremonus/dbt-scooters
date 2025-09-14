@@ -56,6 +56,12 @@ models:
     config:
       materialized: "incremental"
 
+  - name: "companies"
+    description: "Scooter satistics by company"
+  
+  - name: "companies_trips"
+    description: "Trip satistics by company"
+
 sources:
   - name: "scooters_raw"
     description: "Raw data provided by scooters service"
