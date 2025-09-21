@@ -47,6 +47,10 @@ cd dbt_scooters
 
 4. Активируйте PostGIS в базе PostgreSQL, если еще этого не делали:
 
+## Полезные макросы
+
+- `dbt run-operation create_role --args "name: finance"` - создание роли в базе (на примере роли "finance")
+
 ```sql
 create extension postgis schema public;
 ```
