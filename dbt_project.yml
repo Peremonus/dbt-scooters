@@ -1,4 +1,8 @@
-name: "dbt_scooters"
+models:
+  dbt_scooters:
+    +materialized: "table"
+    +on_schema_change: "append_new_columns"
+name: dbt_scooters
 version: "1.0.0"
 profile: "dbt_scooters"
 model-paths: ["models"]
@@ -10,6 +14,3 @@ snapshot-paths: ["snapshots"]
 clean-targets:
   - "target"
   - "dbt_packages"
-models:
-  dbt_scooters:
-    +materialized: "table"
