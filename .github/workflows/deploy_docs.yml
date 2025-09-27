@@ -16,22 +16,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v6
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          # Используем корректный параметр
-          cache-dependency-glob: |
-            pyproject.toml
-            uv.lock
+          python-version: '3.10'
 
-      - name: Install dependencies
-        run: uv sync
+      - name: Install dbt
+        run: pip install dbt-core dbt-postgres
 
       - name: Prepare connection profile
         run: cp profiles.example.yml profiles.yml
 
       - name: Generate docs
-        run: uv run dbt docs generate
+        run: dbt docs generate
         env:
           DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
 
