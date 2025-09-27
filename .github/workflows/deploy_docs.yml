@@ -19,13 +19,13 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
-          # Явно указываем файлы для кэширования
-          cache-dependency-path: |
+          # Используем корректный параметр
+          cache-dependency-glob: |
             pyproject.toml
             uv.lock
 
       - name: Install dependencies
-        run: uv sync --locked
+        run: uv sync
 
       - name: Prepare connection profile
         run: cp profiles.example.yml profiles.yml
