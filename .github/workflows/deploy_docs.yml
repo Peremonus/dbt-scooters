@@ -18,6 +18,8 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: false  # Полностью отключаем кэширование
 
       - name: Install dependencies
         run: uv sync --locked
@@ -32,7 +34,7 @@ jobs:
 
       - name: Prepare site files
         run: |
-          mkdir site
+          mkdir -p site
           cp target/index.html site/
           cp target/manifest.json site/
           cp target/catalog.json site/
