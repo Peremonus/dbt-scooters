@@ -4,12 +4,9 @@ version = "0.1.0"
 description = "dbt project for scooters data"
 dependencies = [
     "dbt-core>=1.5.0",
-    "dbt-postgres>=1.5.0",  # или ваша база данных: dbt-snowflake, dbt-bigquery и т.д.
+    "dbt-postgres>=1.5.0",  # или ваша база данных
 ]
 
 [build-system]
 requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
-
-[tool.uv]
-dev-dependencies = []
