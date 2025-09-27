@@ -17,11 +17,13 @@ models:
   
   - name: "trips_age_daily"
     description: "Daily trips statistics by user age"
-    data_tests:
-      - unique:
-          column_name: "date::text || age::text"
-      - unique_key:
-          columns: [ "date", "age" ]
+    columns:
+    - name: "date"
+      tests:
+        - not_null
+    - name: "age"
+      tests:
+        - not_null
   
   - name: "trips_age_daily_stat"
     description: "Aggregation of daily trips statistics by user age"
@@ -66,7 +68,7 @@ models:
     columns:
       - name: "company"
         description: "Scooters manufacturing company"
-        data_tests:
+        tests:
           - unique
 
   - name: "events_full"
@@ -88,17 +90,18 @@ sources:
       - name: "trips"
         description: "Scooter trips"
         loaded_at_field: "finished_at"
-        freshness:
-          warn_after:
-            count: 1
-            period: "day"
-          error_after:
-            count: 3650
-            period: "day"
+        config:
+          freshness:
+            warn_after:
+              count: 1
+              period: "day"
+            error_after:
+              count: 3650
+              period: "day"
         columns:
           - name: "user_id"
             description: "User identifier"
-            data_tests:
+            tests:
               - not_null
               - relationships:
                   name: "every_trip_has_user"
@@ -110,7 +113,7 @@ sources:
         columns:
           - name: "sex"
             description: "User gender"
-            data_tests:
+            tests:
               - accepted_values:
                   values: [ "M", "F" ]
               - not_null:

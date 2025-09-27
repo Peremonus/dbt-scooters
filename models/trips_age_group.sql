@@ -1,5 +1,5 @@
 select
-    ag."group" as age_group,
+    ag."age_group" as age_group,
     count(*) as trips,
     sum(price_rub) as revenue_rub
 from

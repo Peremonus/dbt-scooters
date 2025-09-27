@@ -1,0 +1,18 @@
+{% test unique_not_null(model, column_name) %}
+with null_values as (
+    select {{ column_name }}
+    from {{ model }}
+    where {{ column_name }} is null
+),
+duplicate_values as (
+    select {{ column_name }}
+    from {{ model }}
+    where {{ column_name }} is not null
+    group by {{ column_name }}
+    having count(*) > 1
+)
+
+select * from null_values
+union all
+select * from duplicate_values
+{% endtest %}
