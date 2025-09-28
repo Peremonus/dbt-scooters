@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv sync
+          uv pip install dbt-core dbt-postgres
           uv run dbt deps
 
       - name: Prepare connection profile
