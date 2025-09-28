@@ -28,14 +28,18 @@ jobs:
 
       - name: Install dependencies
         run: |
+          uv venv
+          source .venv/bin/activate
           uv pip install dbt-core dbt-postgres
-          uv run dbt deps
+          dbt deps
 
       - name: Prepare connection profile
         run: cp profiles.example.yml profiles.yml
 
       - name: Generate docs
-        run: uv run dbt docs generate
+        run: |
+          source .venv/bin/activate
+          dbt docs generate
         env:
           DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
 
