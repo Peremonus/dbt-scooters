@@ -53,7 +53,7 @@ models:
     config:
       materialized: "incremental"
       strategy: "merge"
-      unique_key: [ "user_id", "timestamp", "type_id" ]
+      unique_key: "user_id, timestamp, type_id"
   
   - name: "trips_concurrency"
     description: "Number of simultaneous rides in time"
@@ -61,10 +61,10 @@ models:
       materialized: "incremental"
 
   - name: "companies"
-    description: "Scooter satistics by company"
+    description: "Scooter statistics by company"
   
   - name: "companies_trips"
-    description: "Trip satistics by company"
+    description: "Trip statistics by company"
     columns:
       - name: "company"
         description: "Scooters manufacturing company"
@@ -81,6 +81,18 @@ models:
 
   - name: "trips_age_group"
     description: "Overall trips statistics by user age group"
+
+  - name: "sex_age_pivot"
+    description: "Trips per age grouped by sex"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - "age"
+    columns:
+      - name: "age"
+        description: "Numerical age of user"
+        tests:
+          - dbt_utils.not_constant
 
 sources:
   - name: "scooters_raw"
@@ -104,9 +116,8 @@ sources:
             tests:
               - not_null
               - relationships:
-                  name: "every_trip_has_user"
-                  to: "source('scooters_raw', 'users')"
-                  field: "id"
+                  to: source('scooters_raw', 'users')
+                  field: id
 
       - name: "users"
         description: "Users of scooter service"
@@ -115,10 +126,10 @@ sources:
             description: "User gender"
             tests:
               - accepted_values:
-                  values: [ "M", "F" ]
+                  values: ["M", "F"]
               - not_null:
                   config:
-                    severity: "warn"
+                    severity: warn  # Изменено с error на warn
 
       - name: "events"
         description: "Raw user events with duplicates"
