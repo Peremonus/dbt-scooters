@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv sync --locked
+          uv sync
           uv run dbt deps
 
       - name: Prepare connection profile
