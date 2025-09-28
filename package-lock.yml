@@ -5,7 +5,10 @@ packages:
   - name: dbt_expectations
     package: metaplane/dbt_expectations
     version: 0.10.9
+  - name: dbt_product_analytics
+    package: mjirv/dbt_product_analytics
+    version: 0.3.1
   - name: dbt_date
     package: godatadriven/dbt_date
     version: 0.16.1
-sha1_hash: edce084262c4a9f57be61d54b6617d0c5a718c1b
+sha1_hash: cf6dff7942a6cdd1093edaaef220fd17d72d6489

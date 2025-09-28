@@ -106,6 +106,17 @@ models:
         tests:
           - dbt_utils.not_constant
 
+  - name: "events_stream"
+    description: "User events prepared for product analysis"
+    config:
+      materialized: "ephemeral"
+
+  - name: "book_scooter_retention"
+    description: >
+      Retention analysis which tells how many people
+      started search for scooter and finally booked it on or after
+      1, 7, 14 days (or weeks, months, years), etc
+
 sources:
   - name: "scooters_raw"
     description: "Raw data provided by scooters service"
