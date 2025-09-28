@@ -5,6 +5,19 @@ models:
     description: "Trips prepared for analysis"
     config:
       materialized: "view"
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: warn  # Будет показывать предупреждение вместо ошибки
+      - name: started_at
+        tests:
+          - not_null
+      - name: finished_at
+        tests:
+          - not_null
   
   - name: "trips_stat"
     description: "Overall trips statistics"
@@ -85,9 +98,8 @@ models:
   - name: "sex_age_pivot"
     description: "Trips per age grouped by sex"
     tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - "age"
+      - unique:
+          column_name: "age"
     columns:
       - name: "age"
         description: "Numerical age of user"
@@ -129,7 +141,7 @@ sources:
                   values: ["M", "F"]
               - not_null:
                   config:
-                    severity: warn  # Изменено с error на warn
+                    severity: warn
 
       - name: "events"
         description: "Raw user events with duplicates"
