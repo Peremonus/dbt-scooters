@@ -117,6 +117,15 @@ models:
       started search for scooter and finally booked it on or after
       1, 7, 14 days (or weeks, months, years), etc
 
+  - name: time_spine_daily
+    config:
+      materialized: "table"
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        granularity: day
+        
 sources:
   - name: "scooters_raw"
     description: "Raw data provided by scooters service"

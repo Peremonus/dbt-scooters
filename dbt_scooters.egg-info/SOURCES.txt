@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+dbt_scooters.egg-info/PKG-INFO
+dbt_scooters.egg-info/SOURCES.txt
+dbt_scooters.egg-info/dependency_links.txt
+dbt_scooters.egg-info/requires.txt
+dbt_scooters.egg-info/top_level.txt

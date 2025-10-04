@@ -4,9 +4,15 @@ version = "0.1.0"
 description = "dbt project for scooters data"
 dependencies = [
     "dbt-core>=1.5.0",
-    "dbt-postgres>=1.5.0",  # или ваша база данных
+    "dbt-metricflow[dbt-postgres]==0.10.1",
+    "dbt-postgres>=1.5.0",
 ]
 
 [build-system]
 requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = []
+
+[tool.setuptools.package-dir]

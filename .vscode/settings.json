@@ -1,4 +1,5 @@
 {
     "dbt.enableNewLineagePanel": true,
-    "dbt.lineage.defaultExpansion": 30
+    "dbt.lineage.defaultExpansion": 30,
+    "dbt.queryLimit": 500
 }
