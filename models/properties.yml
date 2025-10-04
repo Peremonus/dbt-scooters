@@ -134,9 +134,9 @@ models:
   - name: "users_class_weekly_trips"
     description: "User classification based on trips during the week"
     data_tests:
-      - unique_key:
-          arguments:
-            columns: [ "user_id" ]
+      - unique:
+          column_name: "user_id"
+
     columns:
       - name: "regular"
         description: "Regular user, rides at least 3 days a week"
