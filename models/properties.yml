@@ -164,13 +164,12 @@ models:
         description: "infrequent/occasional trips, no more than 2 trips per month"
 
   - name: "users_class"
-    description: >
+    description: > 
       Combining all features into a consolidated table.
       Joining with the users table to label each user
     data_tests:
-      - unique_key:
-          arguments:
-            columns: [ "user_id" ]
+      - unique:
+          column_name: "user_id"
 
   - name: "users_class_stat"
     description: >
