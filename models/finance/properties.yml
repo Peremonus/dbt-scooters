@@ -21,6 +21,36 @@ models:
     - name: "updated_at"
       description: "When row was updated last time"
       data_type: "timestamptz"
+   
+  - name: revenue_user_monthly
+    description: "Monthly total revenue by user (ignoring free trips)"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - "user_id"
+            - "month"
+
+  - name: revenue_monthly
+    description: "Monthly total revenue (ignoring free trips)"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - "month"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "not(users < 1000 or revenue_median < 500)"
+
+  - name: revenue_monthly_report
+    description: "Monthly revenue report"
+    config:
+      materialized: "incremental"
+      strategy: "append"
+      on_schema_change: "append_new_columns"
+      full_refresh: false
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - "month"
 
 exposures:
   - name: "financial_dashboard"
