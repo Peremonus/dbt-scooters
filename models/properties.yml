@@ -175,6 +175,33 @@ models:
         - number of users in each group
         - total number of users for information and validation
 
+  - name: "trips_age_sex_daily"
+    description: "Daily trips statistics by user age and gender"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - "date"
+            - "age" 
+            - "sex"
+
+  - name: "trips_age_sex_weekly"
+    description: "Weekly trips statistics by user age and gender"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - "week"
+            - "age"
+            - "sex"
+
+  - name: "trips_age_sex_monthly"
+    description: "Monthly trips statistics by user age and gender"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - "month"
+            - "age"
+            - "sex"
+
 sources:
   - name: "scooters_raw"
     description: "Raw data provided by scooters service"
