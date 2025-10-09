@@ -1,3 +1,4 @@
+-- Это тестовое изменение для проверки Slim CI
 select
     id as user_id,
     fan,

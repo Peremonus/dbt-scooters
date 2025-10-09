@@ -32,8 +32,14 @@ jobs:
       - name: ✅ Run linter
         run: uv run sqlfluff lint
 
+      - name: ⬇️ Checkout previous state
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: target_state
+
       - name: 🏗️️ Build production environment
-        run: uv run dbt build --target prod
+        run: uv run dbt build -s state:modified+ --state target_state --target prod
 
       - name: 🗃️️ Generate Data Catalog
         run: |
