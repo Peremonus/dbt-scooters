@@ -5,7 +5,16 @@ dbt_scooters:
       host: dpg-d37uqm95pdvs7386tq80-a.frankfurt-postgres.render.com
       pass: "{{ env_var('DBT_ENV_SECRET_PASSWORD') }}"
       port: 5432
-      schema: public
+      schema: dbt_dev
+      threads: 4
+      type: postgres
+      user: admin
+    prod:
+      dbname: dev_pg91
+      host: dpg-d37uqm95pdvs7386tq80-a.frankfurt-postgres.render.com
+      pass: "{{ env_var('DBT_ENV_SECRET_PASSWORD') }}"
+      port: 5432
+      schema: dbt
       threads: 4
       type: postgres
       user: admin

@@ -1,0 +1,50 @@
+name: 🚀 Deploy dbt project to production with Data Catalog
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    name: 🚀 Deploy dbt project
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
+
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v5
+
+      - name: 📦 Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: ⚙️ Install dependencies and prepare profiles
+        run: |
+          uv sync --all-groups
+          uv run dbt deps
+          mkdir -p ~/.dbt
+          cp profiles.example.yml ~/.dbt/profiles.yml
+
+      - name: ✅ Run linter
+        run: uv run sqlfluff lint
+
+      - name: 🏗️️ Build production environment
+        run: uv run dbt build --target prod
+
+      - name: 🗃️️ Generate Data Catalog
+        run: |
+          uv run dbt docs generate --target prod
+          mkdir -p docs
+          cp target/index.html docs/
+          cp target/manifest.json docs/
+          cp target/catalog.json docs/
+
+      - name: ⬆️ Commit Data Catalog for GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs

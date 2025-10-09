@@ -1,17 +1,16 @@
 with trips_cte as (
     select
-        company,
+        s.company as company,  -- явно указываем источник колонки
         count(*) as trips
     from
         {{ ref("trips_prep") }} as t
     inner join {{ ref("scooters") }} as s
         on t.scooter_hw_id = s.hardware_id
     group by
-        1
+        s.company  -- группируем по явному источнику
 )
-
 select
-    company,
+    t.company,  -- указываем алиас таблицы
     t.trips,
     c.scooters,
     t.trips / cast(c.scooters as float) as trips_per_scooter
