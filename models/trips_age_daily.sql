@@ -1,5 +1,5 @@
 select
-    "date",
+    date,
     age,
     count(*) as trips,
     sum(price_rub) as revenue_rub

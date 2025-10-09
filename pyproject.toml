@@ -16,3 +16,8 @@ build-backend = "setuptools.build_meta"
 packages = []
 
 [tool.setuptools.package-dir]
+
+[dependency-groups]
+dev = [
+    "sqlfluff-templater-dbt==3.4.2",
+]

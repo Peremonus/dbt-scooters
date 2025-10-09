@@ -1,0 +1,8 @@
+[sqlfluff]
+dialect = postgres
+templater = dbt
+exclude_rules = ST07, RF04, LT05, RF06, LT08, LT12
+warnings = RF02
+
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = True

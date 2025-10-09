@@ -1,6 +1,6 @@
 SELECT
     user_id,
-    date(date_trunc('month', "date")) AS "month",
+    date(date_trunc('month', date)) AS month,
     sum(price_rub) AS revenue_total
 FROM
     {{ ref("trips_users") }}
