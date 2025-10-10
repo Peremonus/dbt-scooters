@@ -30,7 +30,7 @@ jobs:
           
       - name: 🔧 Install dependencies
         run: |
-          uv sync --locked
+          uv sync
           uv run dbt deps
           cp profiles.example.yml profiles.yml
           
